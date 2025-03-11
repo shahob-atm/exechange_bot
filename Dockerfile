@@ -1,20 +1,20 @@
-# Maven va JDK 17 o‘rnatilgan imidj
+# Maven va JDK bilan build container
 FROM maven:3.9.0-eclipse-temurin-17 AS build
 
-# Ishchi katalog
 WORKDIR /app
 
-# Loyiha fayllarini nusxalash
+# Loyiha fayllarini container ichiga nusxalash
 COPY . .
 
-# Maven build
-RUN mvn -B clean install -DskipTests
+# Maven build (jar faylni yaratish)
+RUN mvn -B clean package -DskipTests
 
-# Final image (faqat JDK kerak bo'lsa)
+# Final image
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
-COPY --from=build /app/target/exechange_bot.jar .
+
+# Jar faylni to‘g‘ri yo‘ldan olish
+COPY --from=build /app/target/*.jar app.jar
 
 # Run bot
-CMD ["java", "-jar", "exechange_bot.jar"]
-
+CMD ["java", "-jar", "app.jar"]
