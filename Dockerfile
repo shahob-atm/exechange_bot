@@ -14,7 +14,7 @@ FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
 # Jar faylni to‘g‘ri yo‘ldan olish
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/target/exechange_bot.jar exechange_bot.jar
 
 # Run bot
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "exechange_bot.jar"]
