@@ -27,10 +27,17 @@ public class MessageHandler {
 
         MessageCommand command = MessageCommand.fromString(text);
 
-        switch (command) {
-            case MessageCommand.START -> botService.sendMessage(update.getMessage(), generateStartCommandMessage(chatId));
-            case MessageCommand.HELP -> botService.sendMessage(update.getMessage(), generateHelpCommandMessage(chatId));
-            case null, default -> botService.sendMessage(update.getMessage(), new SendMessage(chatId, "❓ Noma'lum buyruq,  /help  bilan yordam oling!"));
+        if (command == null) {
+            botService.sendMessage(update.getMessage(), new SendMessage(chatId, "❓ Noma'lum buyruq,  /help  bilan yordam oling!"));
+            return;
+        }
+
+        if (command.equals(MessageCommand.START)) {
+            botService.sendMessage(update.getMessage(), generateStartCommandMessage(chatId));
+        }
+
+        if (command.equals(MessageCommand.HELP)) {
+            botService.sendMessage(update.getMessage(), generateHelpCommandMessage(chatId));
         }
     }
 
