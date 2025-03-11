@@ -17,7 +17,7 @@ FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
 # Jar faylni build container'dan nusxalash
-COPY --from=build /app/target/exechange_bot-1.0-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 # Run bot
 CMD ["java", "-jar", "app.jar"]
