@@ -45,4 +45,9 @@ public class ExchangeBot extends TelegramLongPollingBot {
     public String getBotToken() {
         return BotConfig.BOT_TOKEN;
     }
+
+    public void shutdown() {
+        System.out.println("⚡ Bot resurslari tozalanmoqda...");
+        executorService.shutdown();
+    }
 }
